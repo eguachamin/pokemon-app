@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Buscar Pokémon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">Nombre del Pokémon</ion-label>
+    <ion-input [(ngModel)]="pokemonName"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" (click)="searchPokemon()">Buscar</ion-button>
+
+  <div *ngIf="pokemonData">
+    <ion-card [ngClass]="[
+    'card-' + pokemonData.types[0].type.name,
+    isLightType(pokemonData.types[0].type.name) ? 'card-light' : ''
+  ]">
+      <img [src]="pokemonData.sprites.front_default" alt="pokemon">
+      <ion-card-header>
+        <ion-card-title>{{ pokemonData.name | titlecase }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Altura:</strong> {{ pokemonData.height }}</p>
+        <p><strong>Peso:</strong> {{ pokemonData.weight }}</p>
+        <p><strong>Tipo(s):</strong> {{ pokemonTypes }}</p>
+        <p><strong>Experiencia base:</strong> {{ pokemonData.base_experience }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-item>
+      <ion-label position="floating">Reseña</ion-label>
+      <ion-textarea [(ngModel)]="review"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="full" color="success" (click)="saveReview()">Guardar en Firebase</ion-button>
+  </div>
+</ion-content>
